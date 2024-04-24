@@ -27,6 +27,12 @@ jobs:
 
       - run: docker version
 
+      - uses: janole/select-docker-version@v1
+        with:
+          version: '22'
+
+      - run: docker version
+
       - name: Add Docker's official GPG key
         run: |
           sudo apt-get update
