@@ -16,4 +16,4 @@ jobs:
       - uses: janole/select-docker-version@main
         with:
           version: '23'
-      - run: docker version -f json | jq ".Server.Version"
+      - run: docker version | grep -i -m 1 Version
