@@ -9,24 +9,24 @@ runs:
   using: "composite"
   steps:
     - name: Add Docker's official GPG key
+      shell: bash
       run: |
         sudo apt-get update
         sudo apt-get install ca-certificates curl
         sudo install -m 0755 -d /etc/apt/keyrings
         sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
         sudo chmod a+r /etc/apt/keyrings/docker.asc
-      shell: bash
 
     - name: Add the repository to Apt sources 
+      shell: bash
       run: |
         echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         sudo apt-get update
-      shell: bash
 
     - name: Select Docker version
-      run: |
-         export VERSION_STRING=`apt-cache madison docker-ce | awk '{ print $3 }' | grep -m 1 :$VERSION`
-         sudo apt-get install -y --allow-downgrades docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin
       shell: bash
       env:
         VERSION: ${{ inputs.version }}
+      run: |
+         export VERSION_STRING=`apt-cache madison docker-ce | awk '{ print $3 }' | grep -m 1 :$VERSION`
+         sudo apt-get install -y --allow-downgrades docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin
