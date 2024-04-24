@@ -25,8 +25,6 @@ runs:
 
     - name: Select Docker version
       shell: bash
-      env:
-        VERSION: ${{ inputs.version }}
       run: |
-         export VERSION_STRING=`apt-cache madison docker-ce | awk '{ print $3 }' | grep -m 1 :$VERSION`
+         export VERSION_STRING=`apt-cache madison docker-ce | awk '{ print $3 }' | grep -m 1 :${{ inputs.version }}`
          sudo apt-get install -y --allow-downgrades docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin
