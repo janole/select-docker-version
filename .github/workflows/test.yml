@@ -43,7 +43,7 @@ jobs:
       - name: Select Docker version
         run: |
            export VERSION_STRING=`apt-cache madison docker-ce | awk '{ print $3 }' | grep -m 1 :23`
-           sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin
+           sudo apt-get install -y --allow-downgrades docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin
 
       - run: docker version
 
