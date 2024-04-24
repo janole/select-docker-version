@@ -27,7 +27,7 @@ jobs:
 
       - run: docker version
 
-      - uses: janole/select-docker-version@v1
+      - uses: janole/select-docker-version@master
         with:
           version: '22'
 
